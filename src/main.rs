@@ -77,7 +77,7 @@ mod tests {
         let mut unsorted = vec![];
         let mut rng = rand::thread_rng();
 
-        for _ in 1..999 {
+        for _ in 1..9999 {
             unsorted.push(rng.gen::<usize>());
         }
         let mut sorted = unsorted.clone();
