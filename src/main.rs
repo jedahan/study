@@ -10,7 +10,7 @@ fn main() {
 fn selection_sort<T: Ord + Clone>(numbers: Vec<T>) -> Vec<T> {
     let mut numbers: Vec<T> = numbers.clone();
 
-    for i in 1..numbers.len() {
+    for i in 0..numbers.len() {
         let mut min = i;
 
         for j in (i + 1)..numbers.len() {
