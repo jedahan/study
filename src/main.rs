@@ -29,7 +29,7 @@ fn merge_sort<T: Ord + Bounded + Clone>(mut arr: Vec<T>) -> Vec<T> {
         return arr;
     }
     if arr.len() == 2 {
-        if arr[0] > arr[1] { 
+        if arr[0] > arr[1] {
             arr.swap(0,1);
         }
         return arr;
@@ -40,7 +40,7 @@ fn merge_sort<T: Ord + Bounded + Clone>(mut arr: Vec<T>) -> Vec<T> {
     merge(
         merge_sort(left.to_vec()),
         merge_sort(right.to_vec())
-    )
+        )
 }
 
 fn merge<T: Ord + Bounded + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T>{
@@ -73,28 +73,32 @@ mod tests {
     use super::selection_sort;
     use rand::{self, Rng};
 
-    #[test]
-    fn merge() {
-        let mut unsorted: Vec<usize> = vec![];
+    fn generate_random() -> (Vec<usize>, Vec<usize>) {
+        let mut unsorted = vec![];
         let mut rng = rand::thread_rng();
 
-        for _ in 1..99 {
+        for _ in 1..999 {
             unsorted.push(rng.gen::<usize>());
         }
-
-        let mut to_sorted = unsorted.clone();
-
-        let sorted = merge_sort(unsorted);
-        to_sorted.sort();
-
-        assert_eq!(to_sorted, sorted);
+        let mut sorted = unsorted.clone();
+        sorted.sort();
+        (unsorted, sorted)
     }
 
     #[test]
-    fn selection() {
-        let unsorted = vec![ 5, 15, 20, 13 ];
-        let sorted = selection_sort(unsorted);
+    fn merge() {
+        let (unsorted, sorted) = generate_random();
+        let my_sorted = merge_sort(unsorted);
 
-        assert_eq!(sorted, [5, 13, 15, 20]);
+        assert_eq!(my_sorted, sorted);
+    }
+
+
+    #[test]
+    fn selection() {
+        let (unsorted, sorted) = generate_random();
+        let my_sorted = selection_sort(unsorted);
+
+        assert_eq!(my_sorted, sorted);
     }
 }
