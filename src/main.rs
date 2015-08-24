@@ -7,6 +7,23 @@ fn main() {
     return;
 }
 
+fn insertion_sort<T: Ord + Clone>(numbers: Vec<T>) -> Vec<T> {
+    let mut numbers: Vec<T> = numbers.clone();
+    for n in numbers {
+    ////jsjsjs no negative numbers :(
+    for j in 0..numbers.len() {
+      let key = numbers[j].clone();
+      let mut i = j - 1;
+      println!("{}", i);
+      while i > 0 && numbers[i] > key {
+        numbers[i+1] = numbers[i].clone();
+        i = i - 1;
+      }
+      numbers[i+1] = key;
+    }
+    numbers
+}
+
 fn selection_sort<T: Ord + Clone>(numbers: Vec<T>) -> Vec<T> {
     let mut numbers: Vec<T> = numbers.clone();
 
@@ -70,15 +87,16 @@ fn merge<T: Ord + Bounded + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T>{
 #[cfg(test)]
 mod tests {
     use super::merge_sort;
+    use super::insertion_sort;
     use super::selection_sort;
-    use rand::{self, Rng};
+    //use rand::{self, Rng};
 
     fn generate_random() -> (Vec<usize>, Vec<usize>) {
         let mut unsorted = vec![];
-        let mut rng = rand::thread_rng();
+        //let mut rng = rand::thread_rng();
 
-        for _ in 1..9999 {
-            unsorted.push(rng.gen::<usize>());
+        for i in 1..9 {
+            unsorted.push(11-i);//rng.gen::<usize>());
         }
         let mut sorted = unsorted.clone();
         sorted.sort();
@@ -88,17 +106,18 @@ mod tests {
     #[test]
     fn merge() {
         let (unsorted, sorted) = generate_random();
-        let my_sorted = merge_sort(unsorted);
-
-        assert_eq!(my_sorted, sorted);
+        assert_eq!(merge_sort(unsorted), sorted);
     }
 
+    #[test]
+    fn insertion() {
+        let (unsorted, sorted) = generate_random();
+        assert_eq!(insertion_sort(unsorted), sorted);
+    }
 
     #[test]
     fn selection() {
         let (unsorted, sorted) = generate_random();
-        let my_sorted = selection_sort(unsorted);
-
-        assert_eq!(my_sorted, sorted);
+        assert_eq!(selection_sort(unsorted), sorted);
     }
 }
