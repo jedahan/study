@@ -21,8 +21,8 @@ def merge_sort(a):
 
 def merge(l, r):
     m = []
-    while(len(l) > 0 and len(r) > 0):
-        if(l[0]<r[0]):
+    while len(l) > 0 and len(r) > 0:
+        if l[0]<r[0]:
             m.append(l.pop(0))
         else:
             m.append(r.pop(0))
