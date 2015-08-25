@@ -31,3 +31,22 @@ def merge(l, r):
     return m
 
 print(merge_sort(a))
+
+b = merge_sort(a)
+
+def binary(a, needle):
+    if len(a)==0 or needle < a[0] or needle > a[len(a)-1]: return -1
+    mid = len(a)/2
+    if a[mid] > needle: return binary(a[:mid], needle)
+    if a[mid] < needle: return mid + binary(a[mid:], needle)
+    return mid
+
+index = random.randint(0,len(b))
+needle = b[index]
+
+print(index, needle)
+found = binary(b, needle)
+print(found,b[found])
+
+notfound = binary(b, 101)
+print(notfound)
